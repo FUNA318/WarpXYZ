@@ -33,7 +33,6 @@ class Main extends PluginBase implements Listener{
         mkdir($this->getDataFolder(), 0744, true);
     }
     $this->warp = new Config($this->getDataFolder() . "Warp.yml", Config::YAML);
-    $this->warps = new Config($this->getDataFolder() . "Warp2.yml", Config::YAML);
     $this->name = new Config($this->getDataFolder() . "WarpName.yml", Config::YAML);
   }
 
@@ -69,8 +68,6 @@ class Main extends PluginBase implements Listener{
        $this->warp2[$sender->getName()] = "".$x.":".$y.":".$z.":".$l."";
        $this->warp->set($this->warp1[$sender->getName()], $this->warp2[$sender->getName()]);
        $this->warp->save();
-       $this->warps->set($this->warp2[$sender->getName()], $this->warp1[$sender->getName()]);
-       $this->warps->save();
        $this->name->set($args[1], $this->warp1[$sender->getName()]);
        $this->name->save();
        $sender->sendMessage("§bXYZWARP >> ".$this->warp2[$sender->getName()]."にポイント§f".$args[1]."§bを指定しました。");
@@ -85,8 +82,6 @@ class Main extends PluginBase implements Listener{
         if($this->name->exists($args[1])){
           $na = $this->name->get($args[1]);
           $na1 = $this->warp->get($na);
-          $this->warps->remove($na1);
-          $this->warps->save();
           $this->warp->remove($na);
           $this->warp->save();
           $this->name->remove($args[1]);
@@ -102,7 +97,6 @@ class Main extends PluginBase implements Listener{
 }
   public function onMove(PlayerMoveEvent $e){
     $p = $e->getPlayer();
-    if($this->warpA = true){
     if($p->isSneaking()){
     $name = $p->getName();
     $x = (Int)$p->getX();
@@ -120,32 +114,10 @@ class Main extends PluginBase implements Listener{
       if ($pos instanceof Position) {
       $p->teleport($pos);
     }
-      $this->warpA = false;
-      $this->getServer()->getScheduler()->scheduleDelayedTask(new CallbackTask([$this, 'WarpWait'], []), 20 * 2);
-      $this->getServer()->broadcastPopup("§a".$p->getName()."が§bWarp§fしました。");
       $p->sendMessage("§bXYZWARP >> §a君は§b".$d2."§aにwarpした！");
       $p->sendMessage("§bXYZWARP >> §6さぁ、楽しめよ！");
     }
-    if($this->warps->exists($a)){
-      $b1 = $this->warps->get($a);
-      list($a11, $b11, $c11, $d11) = explode(":", $b1);
-      $pp = $this->getServer()->getLevelByName($d11);
-      $posb = new Position($a11, $b11, $c11, $pp);
-      if ($posb === null) return;
-      if ($posb instanceof Position) {
-      $p->teleport($posb);
-    }
-      $this->warpA = false;
-      $this->getServer()->getScheduler()->scheduleDelayedTask(new CallbackTask([$this, 'WarpWait'], []), 20 * 2);
-      $this->getServer()->broadcastPopup("§a".$p->getName()."が§bWarp§fしました。");
-      $p->sendMessage("§bXYZWARP >> §a君は§b".$d11."§aにwarpした！");
-      $p->sendMessage("§bXYZWARP >> §6さぁ、楽しめよ！");
-    }
   }
-      }
 }
-  public function WarpWait(){
-  $this->warpA = true;
-  }
   
    }
