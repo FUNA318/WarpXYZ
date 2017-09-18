@@ -21,6 +21,9 @@ use pocketmine\utils\TextFormat;
 use pocketmine\utils\MainLogger;
 use pocketmine\plugin\Plugin;
 use pocketmine\block\Block;
+use pocketmine\scheduler\PluginTask;
+use pocketmine\scheduler\CallbackTask;
+use pocketmine\scheduler\Task;
 
 class Main extends PluginBase implements Listener{
 
@@ -91,6 +94,7 @@ class Main extends PluginBase implements Listener{
 }
   public function onMove(PlayerMoveEvent $e){
     $p = $e->getPlayer();
+    if($this->warpA = true){
     if($p->isSneaking()){
     $name = $p->getName();
     $x = (Int)$p->getX();
@@ -108,6 +112,8 @@ class Main extends PluginBase implements Listener{
       if ($pos instanceof Position) {
       $p->teleport($pos);
     }
+      $this->warpA = false;
+      $this->getServer()->getScheduler()->scheduleDelayedTask(new CallbackTask([$this, 'WarpWait'], []), 20 * 1);
       $this->getServer()->broadcastPopup("§a".$p->getName()."が§bWarp§fしました。");
       $p->sendMessage("§bXYZWARP >> §a君は§b".$d2."§aにwarpした！");
       $p->sendMessage("§bXYZWARP >> §6さぁ、楽しめよ！");
@@ -121,11 +127,17 @@ class Main extends PluginBase implements Listener{
       if ($posb instanceof Position) {
       $p->teleport($posb);
     }
+      $this->warpA = false;
+      $this->getServer()->getScheduler()->scheduleDelayedTask(new CallbackTask([$this, 'WarpWait'], []), 20 * 1);
       $this->getServer()->broadcastPopup("§a".$p->getName()."が§bWarp§fしました。");
       $p->sendMessage("§bXYZWARP >> §a君は§b".$d11."§aにwarpした！");
       $p->sendMessage("§bXYZWARP >> §6さぁ、楽しめよ！");
     }
   }
+      }
 }
+  public function WarpWait(){
+  $this->warpA = true;
+  }
   
    }
