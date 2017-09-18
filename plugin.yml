@@ -1,0 +1,10 @@
+name: WarpXYZ
+main: WarpXYZ\Main
+version: 1.0.0
+api: [1.0.0, 2.0.0]
+load: POSTWORLD
+author: R_Funa
+commands:
+ xwarp:
+  Usage: “/xwarp <one/two/remove>”
+  description: §bWARPポイント設定
