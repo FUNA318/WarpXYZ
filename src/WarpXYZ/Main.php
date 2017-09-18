@@ -121,7 +121,7 @@ class Main extends PluginBase implements Listener{
       $p->teleport($pos);
     }
       $this->warpA = false;
-      $this->getServer()->getScheduler()->scheduleDelayedTask(new CallbackTask([$this, 'WarpWait'], []), 20 * 1);
+      $this->getServer()->getScheduler()->scheduleDelayedTask(new CallbackTask([$this, 'WarpWait'], []), 20 * 2);
       $this->getServer()->broadcastPopup("§a".$p->getName()."が§bWarp§fしました。");
       $p->sendMessage("§bXYZWARP >> §a君は§b".$d2."§aにwarpした！");
       $p->sendMessage("§bXYZWARP >> §6さぁ、楽しめよ！");
@@ -136,7 +136,7 @@ class Main extends PluginBase implements Listener{
       $p->teleport($posb);
     }
       $this->warpA = false;
-      $this->getServer()->getScheduler()->scheduleDelayedTask(new CallbackTask([$this, 'WarpWait'], []), 20 * 1);
+      $this->getServer()->getScheduler()->scheduleDelayedTask(new CallbackTask([$this, 'WarpWait'], []), 20 * 2);
       $this->getServer()->broadcastPopup("§a".$p->getName()."が§bWarp§fしました。");
       $p->sendMessage("§bXYZWARP >> §a君は§b".$d11."§aにwarpした！");
       $p->sendMessage("§bXYZWARP >> §6さぁ、楽しめよ！");
