@@ -56,7 +56,11 @@ class Main extends PluginBase implements Listener{
       return true;
         break;
         case "two":
-        if(!isset($args[1])) return false;
+        if(!isset($args[1])){
+          $sender->sendMessage("§bXYZWARP >> /xwarp two <ワープポイント名>");
+          return false;
+          break;
+        }
         $x = (Int)$sender->getX();
        $y = (Int)$sender->getY();
        $z = (Int)$sender->getZ();
@@ -73,7 +77,11 @@ class Main extends PluginBase implements Listener{
         break;
         return true;
         case "remove":
-        if(!isset($args[1])) return false;
+        if(!isset($args[1])){
+          $sender->sendMessage("§bXYZWARP >> /xwarp remove <ワープポイント名>");
+          return false;
+          break;
+        }
         if($this->name->exists($args[1])){
           $na = $this->name->get($args[1]);
           $na1 = $this->warp->get($na);
